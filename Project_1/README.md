@@ -15,4 +15,4 @@ When clicking the box art for the movie, the movie trailer will play.
        or press Run > Run Module
 
 <hr>
-![Movies Image](https://github.com/rc2851/Udacity_Full_Stack/blob/master/Project%201/movies.PNG)
+![Movies Image](https://github.com/rc2851/Udacity_Full_Stack/blob/master/Project_1/movies.PNG)
