@@ -5,8 +5,11 @@ and ranking tournament results on a Linux virtual machine.
 <hr>
 ### Virtual machine setup:
 	1. Install Git
-		Install [Git](http://git-scm.com/downloads/ "Git") link.	
-	2. Install [Vagrant](http://vagrantup.com/ "Vagrant") and [Vitual Box](https://www.virtualbox.org/ "Virtual Box")
+		Install [Git](http://git-scm.com/downloads/ "Git") link.
+Install [Git](http://git-scm.com/downloads/ "Git") link.	
+	2. Install Vagrant and VirtualBox
+		Vagrant:    http://vagrantup.com/
+		VirtualBox: https://www.virtualbox.org/
 	3. Use Git to clone the fullstack-nanodegree-vm repository
 		From the terminal type the following:
 		git clone http://github.com/udacity/fullstack-nanodegree-vm fullstack
