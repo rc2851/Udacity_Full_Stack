@@ -6,6 +6,10 @@ and ranking tournament results on a Linux virtual machine.
 ### Virtual machine setup:
 	1. Install Git
 		http://git-scm.com/downloads
+
+This is [an example](http://www.slate.com/ "Title") inline link.
+[This link](http://example.net/) has no title attribute.
+
 	2. Install Vagrant and VirtualBox
 		Vagrant:    http://vagrantup.com/
 		VirtualBox: https://www.virtualbox.org/
