@@ -4,7 +4,10 @@ This project is designed to support the Swiss style tournament by creating, stor
 and ranking tournament results on a Linux virtual machine.
 <hr>
 ### Virtual machine setup:
-	1. Install [Git](http://git-scm.com/downloads "Git").
+	1. Install [Git](http://git-scm.com/downloads "Git").	
+	2. This is [an example](http://www.slate.com/ "Title") inline link.
+This is [an example](http://www.slate.com/ "Title") inline link.
+	This is [an example](http://www.slate.com/ "Title") inline link.
 	2. Install [Vagrant](http://vagrantup.com/ "Vagrant") and [Vitual Box](https://www.virtualbox.org/ "Virtual Box")
 	3. Use Git to clone the fullstack-nanodegree-vm repository
 		From the terminal type the following:
