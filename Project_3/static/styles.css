@@ -1,0 +1,139 @@
+body{
+    font-family: sans-serif;
+    #background-image: url('img3.jpg');
+    background-color: blue;
+    overflow: hidden;
+ }
+
+h1, h2, h3, h4{ 
+    #color: #9999FF; 
+    color: white;
+}
+
+h1, h2{ 
+    font-family: 'Georgia', serif; 
+    margin: 0; 
+}
+
+h1{ 
+    border-bottom: 2px solid #eee; 
+}
+
+h2{ 
+    font-size: 1.2em; 
+}
+
+p, dd, dt{
+    color: white;
+}
+
+a {
+    #color: #9999FF;
+    #color: #CCCCFF;
+    color: white;
+    font-size: .75em;
+    text-decoration: underline;
+}
+
+.pane {position: absolute; 
+    left: 25%; 
+    border: 2px solid;
+    border-radius: 25px; 
+    padding: 5px; 
+    margin: 5px; 
+    #border-color: #999999; 
+    #background-color: #333333;
+}
+
+.header {
+    left: 50%;
+    text-align: center;
+}
+
+  .header2 {
+    left: 50%;
+    text-align: center;
+}
+
+.name {
+    width: 700px;
+    display: inline-block;
+    float: left;
+}
+
+.description {
+    font-size: .60em;
+}
+
+.description-text{
+    height: 100px;
+    width: 210px;
+}
+
+.price {
+    text-align: center;
+    #width: 50%;
+    #float: left;
+}
+
+.editdeletepane{
+    text-align: center;
+}
+
+.flash{
+    background: #cee5F5;
+}
+
+.top-pane {
+    width: 98%;
+    height: 50px;
+    text-align: center;
+    border-radius: 25px;  
+    padding: 5px; 
+    margin: 5px; 
+    #border-color: #999999; 
+    background-color: darkblue;
+}
+
+table, th, td {
+     border: 1px solid white;
+     border-spacing: 5px;
+}
+
+.container {
+    width:100%;
+  }
+
+.right-pane {
+    float: center;
+    text-align: center;
+    width: 75%;
+    height: 85%;
+    overflow-y: auto;
+    border: 2px solid;
+    border-color: white;
+    #background-color: #FFFAFA;
+}
+
+.left-pane {
+    float: left;
+    width: 200px;
+    height: 85%;
+    overflow-y: auto;
+}
+
+.left{
+  text-align: left;
+}
+
+.right{
+  text-align: right;
+  margin-right: 5px;
+}
+
+.center-div{
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  text-align: center;
+}

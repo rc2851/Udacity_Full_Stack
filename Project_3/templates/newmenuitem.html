@@ -1,0 +1,32 @@
+<html>
+  <head>
+     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+  <h1 class='header'> New Menu Item </h1>
+    <br>
+    <div class='center-div'>
+      <form action="{{url_for('newMenuItem', restaurant_id=restaurant_id )}}" method = 'POST'>
+        <table>
+          <tr>
+            <td><p>Name:</p></td>
+            <td><input type='text' size='30' name='name' maxlength="80" required></td>
+          </tr>
+          <tr>
+            <td><p>Price:</p></td>
+            <td><input type='text' size='30' name='price' maxlength="8" required></td>
+          </tr>
+          <tr>
+            <td><p>Description:</p></td>
+            <!--<td><input type='text' class='description-text' size='30' name='description' required></td>
+            -->
+            <td><textarea class='description-text' maxlength="250" name='description' required></textarea></td>
+          </tr>
+        </table>
+        <br>
+        <input type='submit' value='Create'>
+        <button type="cancel" onclick="window.location='{{url_for('restaurantMenu', restaurant_id=restaurant_id)}}';return false;">Cancel</button>
+      </form>
+    </div>
+  </body>
+</html>
