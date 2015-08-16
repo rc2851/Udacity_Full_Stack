@@ -15,9 +15,11 @@ import requests
 
 app = Flask(__name__)
 
+
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Restaurant Menu Application"
+
 
 # Connect to Database and create database session
 engine = create_engine('sqlite:///restaurantmenu.db')
@@ -25,6 +27,7 @@ Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
 
 # Create anti-forgery state token
 @app.route('/login')
@@ -34,6 +37,7 @@ def showLogin():
     login_session['state'] = state
     # return "The current session state is %s" % login_session['state']
     return render_template('login.html', STATE=state)
+
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
@@ -48,7 +52,7 @@ def gconnect():
         return response
     # Obtain authorization code
     code = request.data
-    print "code                      = " + code
+    print "code = " + code
 
     try:
         # Upgrade the authorization code into a credentials object
@@ -108,7 +112,8 @@ def gconnect():
         return response
 
     # Store the access token in the session for later use.
-    login_session['credentials'] = credentials
+    #login_session['credentials'] = credentials
+    login_session['credentials'] = credentials.to_json()
     login_session['gplus_id'] = gplus_id
 
     # Get user info
@@ -206,6 +211,7 @@ def restaurantMenu(restaurant_id):
     restaurants = session.query(Restaurant).all()
     return render_template('restaurants.html', restaurants=restaurants, rest=rest, items=items, restaurant_id=restaurant_id)
 
+#Add a new menu item
 @app.route('/restaurants/<int:restaurant_id>/new', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
     if 'username' not in login_session:
@@ -218,7 +224,7 @@ def newMenuItem(restaurant_id):
     else:
         return render_template('newmenuitem.html', restaurant_id=restaurant_id)
 
-
+#Edit a menu item
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit', methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
     if 'username' not in login_session:
@@ -239,6 +245,7 @@ def editMenuItem(restaurant_id, menu_id):
     else:
         return render_template('editmenuitem.html', restaurant_id=restaurant_id, menu_id=menu_id, item=editedItem)
 
+#Delete a menu item
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/delete', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
     if 'username' not in login_session:

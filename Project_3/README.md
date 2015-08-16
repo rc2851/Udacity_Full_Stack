@@ -8,6 +8,10 @@ to add, edit, and delete menu item.
 	https://www.python.org/downloads/
 
 <hr>
+### Installing version 0.9 of Flask 
+	pip install flask==0.9
+
+<hr>
 ### Virtual machine setup:
 	1. Install Git
 		http://git-scm.com/downloads	
@@ -44,6 +48,5 @@ to add, edit, and delete menu item.
 	Restaurant menu item
 		/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON 
 		example: http://localhost:5000/restaurant/1/menu/2/JSON
-
 
 	
