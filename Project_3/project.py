@@ -6,7 +6,6 @@ from flask import session as login_session
 import random
 import string
 
-# IMPORTS FOR THIS STEP
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import httplib2
@@ -77,7 +76,6 @@ def gconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
-    print "HERE"
     # Check that the access token is valid.
     access_token = credentials.access_token
     url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
@@ -136,7 +134,6 @@ def gconnect():
     output += login_session['picture']
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("you are now logged in as %s" % login_session['username'])
-    print "done!"
     return output
 
 @app.route('/gdisconnect')
@@ -171,7 +168,16 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
+#----------------------------------------------------------------------------
 # JSON APIs to view Restaurant Information
+
+#Return all restaurants in JSON format
+@app.route('/restaurant/JSON')
+def restaurantsJSON():
+    restaurants = session.query(Restaurant).all()
+    return jsonify(restaurants=[r.serialize for r in restaurants])
+
+#Return all menu items for a restaurant using the restaurant_id
 @app.route('/restaurant/<int:restaurant_id>/menu/JSON')
 def restaurantMenuJSON(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
@@ -179,30 +185,13 @@ def restaurantMenuJSON(restaurant_id):
         restaurant_id=restaurant_id).all()
     return jsonify(MenuItems=[i.serialize for i in items])
 
-
+#Return restaurant menu item using the restaurant_id and menu_id
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON')
 def menuItemJSON(restaurant_id, menu_id):
     Menu_Item = session.query(MenuItem).filter_by(id=menu_id).one()
     return jsonify(Menu_Item=Menu_Item.serialize)
 
-
-@app.route('/restaurant/JSON')
-def restaurantsJSON():
-    restaurants = session.query(Restaurant).all()
-    return jsonify(restaurants=[r.serialize for r in restaurants])
-
-
-#**********************************************
-# use Firefox not IE for JSON testing
-#**********************************************
-
-#Return all menu items
-@app.route('/restaurants/<int:restaurant_id>/menu/JSON')
-def restaurantMenuJSON(restaurant_id):
-    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
-    items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
-    return jsonify(MenuItems=[i.serialize for i in items])
-
+#----------------------------------------------------------------------------
 
 #Display all restaurant names
 @app.route('/')
@@ -220,14 +209,6 @@ def restaurantMenu(restaurant_id):
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id)
     restaurants = session.query(Restaurant).all()
     return render_template('restaurants.html', restaurants=restaurants, rest=rest, items=items, restaurant_id=restaurant_id)
-
-#Display the menu for a restaurant
-#@app.route('/restaurants/<int:restaurant_id>/menu')
-#def restaurantMenu(restaurant_id):
-#    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
-#    items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id)
-#    return render_template('menu.html', restaurant=restaurant, items=items, restaurant_id=restaurant_id)
-
 
 @app.route('/restaurants/<int:restaurant_id>/new', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
@@ -262,7 +243,6 @@ def editMenuItem(restaurant_id, menu_id):
     else:
         return render_template('editmenuitem.html', restaurant_id=restaurant_id, menu_id=menu_id, item=editedItem)
 
-
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/delete', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
     if 'username' not in login_session:
@@ -274,7 +254,6 @@ def deleteMenuItem(restaurant_id, menu_id):
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
         return render_template('deleteconfirmation.html', restaurant_id=restaurant_id, item=itemToDelete)
-
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
