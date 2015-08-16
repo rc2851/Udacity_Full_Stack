@@ -15,11 +15,9 @@ import requests
 
 app = Flask(__name__)
 
-
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Restaurant Menu Application"
-
 
 # Connect to Database and create database session
 engine = create_engine('sqlite:///restaurantmenu.db')
@@ -27,7 +25,6 @@ Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
-
 
 # Create anti-forgery state token
 @app.route('/login')
@@ -37,7 +34,6 @@ def showLogin():
     login_session['state'] = state
     # return "The current session state is %s" % login_session['state']
     return render_template('login.html', STATE=state)
-
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
