@@ -6,6 +6,7 @@ from flask import session as login_session
 import random
 import string
 
+# IMPORTS FOR THIS STEP
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import httplib2
@@ -76,6 +77,7 @@ def gconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
+    print "HERE"
     # Check that the access token is valid.
     access_token = credentials.access_token
     url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
@@ -134,6 +136,7 @@ def gconnect():
     output += login_session['picture']
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("you are now logged in as %s" % login_session['username'])
+    print "done!"
     return output
 
 @app.route('/gdisconnect')
@@ -188,6 +191,11 @@ def restaurantsJSON():
     restaurants = session.query(Restaurant).all()
     return jsonify(restaurants=[r.serialize for r in restaurants])
 
+
+#**********************************************
+# use Firefox not IE for JSON testing
+#**********************************************
+
 #Return all menu items
 @app.route('/restaurants/<int:restaurant_id>/menu/JSON')
 def restaurantMenuJSON(restaurant_id):
@@ -212,6 +220,14 @@ def restaurantMenu(restaurant_id):
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id)
     restaurants = session.query(Restaurant).all()
     return render_template('restaurants.html', restaurants=restaurants, rest=rest, items=items, restaurant_id=restaurant_id)
+
+#Display the menu for a restaurant
+#@app.route('/restaurants/<int:restaurant_id>/menu')
+#def restaurantMenu(restaurant_id):
+#    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+#    items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id)
+#    return render_template('menu.html', restaurant=restaurant, items=items, restaurant_id=restaurant_id)
+
 
 @app.route('/restaurants/<int:restaurant_id>/new', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
@@ -246,6 +262,7 @@ def editMenuItem(restaurant_id, menu_id):
     else:
         return render_template('editmenuitem.html', restaurant_id=restaurant_id, menu_id=menu_id, item=editedItem)
 
+
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/delete', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
     if 'username' not in login_session:
@@ -257,6 +274,7 @@ def deleteMenuItem(restaurant_id, menu_id):
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
         return render_template('deleteconfirmation.html', restaurant_id=restaurant_id, item=itemToDelete)
+
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
