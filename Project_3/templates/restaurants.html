@@ -3,13 +3,16 @@
       <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css')}}">
    </head>
    <body>
-
      <div class = 'right'>
      <div class = 'top-pane'>
-        <h1>Restaurants</h1> 
-     </div>
-     	<a href='/login'>Login</a>
-     </div>
+        <h1>Restaurants</h1>
+      </div>
+          {% if 'username' not in login_session %}
+              <a href='/login'>Login</a>
+          {% else %}
+              <a href='/gdisconnect'>Logout</a>
+          {% endif %}
+      </div>
 
      <div class = 'container'>
       <div class = 'left-pane'>

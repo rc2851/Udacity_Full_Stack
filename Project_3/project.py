@@ -108,8 +108,7 @@ def gconnect():
         return response
 
     # Store the access token in the session for later use.
-    # login_session['credentials'] = credentials
-    login_session['credentials'] = credentials.to_json()
+    login_session['credentials'] = credentials
     login_session['gplus_id'] = gplus_id
 
     # Get user info
@@ -144,6 +143,7 @@ def gdisconnect():
         return response
     access_token = credentials.access_token
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
+
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
 
@@ -195,9 +195,10 @@ def menuItemJSON(restaurant_id, menu_id):
 @app.route('/restaurant/')
 @app.route('/restaurants/')
 def restaurantName():
+    credentials = login_session.get('credentials')
     restaurants = session.query(Restaurant).all()
     # return render_template('restaurants.html', restaurants=restaurants)
-    return render_template('restaurants.html', restaurants=restaurants, rest='', items=-1, restaurant_id=-1)
+    return render_template('restaurants.html', restaurants=restaurants, rest='', items=-1, restaurant_id=-1, login_session = login_session)
 
 # Display the menu for a restaurant
 @app.route('/restaurants/<int:restaurant_id>/menu')
